@@ -1,19 +1,22 @@
 """MAF Agent Factory - Creates agents using Microsoft Agent Framework patterns."""
 
 from typing import Callable, Any
+from azure.identity import DefaultAzureCredential
 from agent_framework.azure import AzureOpenAIResponsesClient
-from agent_framework import ai_function as tool  # tool decorator renamed to ai_function
+from agent_framework import tool
 
 from app.config import settings
 
+_credential = DefaultAzureCredential()
+
 
 def get_azure_client() -> AzureOpenAIResponsesClient:
-    """Get configured Azure OpenAI client for MAF."""
+    """Get configured Azure OpenAI client for MAF using Entra ID auth."""
     return AzureOpenAIResponsesClient(
         endpoint=settings.azure_openai_endpoint,
         deployment_name=settings.azure_openai_deployment_name,
         api_version=settings.azure_openai_api_version,
-        api_key=settings.azure_openai_api_key,
+        credential=_credential,
     )
 
 
@@ -39,7 +42,7 @@ def create_agent(
         endpoint=settings.azure_openai_endpoint,
         deployment_name=deployment or settings.azure_openai_deployment_name,
         api_version=settings.azure_openai_api_version,
-        api_key=settings.azure_openai_api_key,
+        credential=_credential,
     )
     
     return client.as_agent(

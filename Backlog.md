@@ -2,7 +2,7 @@
 
 > *"I don't have time to explain things twice. Read this."*
 
-Last updated: <!-- Update this date when making changes -->
+Last updated: 2026-02-17
 
 ---
 
@@ -11,12 +11,23 @@ Last updated: <!-- Update this date when making changes -->
 | Task | Notes |
 |------|-------|
 | Initial setup | Beth agent system installed |
+| Switch to Entra ID auth | Removed API key auth from config, LLM service, and MAF factory. Now uses `DefaultAzureCredential` everywhere. No secrets in .env. |
+| Fix pip dependency hell | Replaced `agent-framework` metapackage (pulled 15+ sub-packages) with `agent-framework-core` + `agent-framework-azure`. Install went from infinite backtracking to ~30 seconds. |
+| Fix MAF import | `ai_function` → `tool` (correct export name in current MAF version) |
+| App startup | Backend (FastAPI :8000) and frontend (Next.js :3001) both running with Entra ID auth |
+| Comprehensive README rewrite | Full README with hook, overview, key features, architecture diagrams, tech stack tables, security section, services, demo scenarios, MIT license. Lint-clean. |
 
 ---
 
 ## In Progress
 
 *Nothing currently in progress.*
+
+### Follow-ups
+
+- [ ] **Seed database** — Run seed script to populate demo data (mcp-marketplace-maf-pia)
+- [ ] **Verify deployment names** — Confirm gpt-5.2-chat etc. exist in Azure resource (mcp-marketplace-maf-2n8)
+- [ ] **Update docs for Entra ID** — README.md and TRD.md still reference API keys (mcp-marketplace-maf-033)
 
 ---
 
@@ -41,6 +52,8 @@ Last updated: <!-- Update this date when making changes -->
 | Decision | Rationale | Date |
 |----------|-----------|------|
 | Use Beth orchestrator | Coordinated multi-agent workflows | Today |
+| Entra ID over API keys | No secrets to leak, uses `az login` identity, aligns with zero-trust | 2026-02-17 |
+| Slim MAF install | `agent-framework-core` + `agent-framework-azure` only — no Anthropic, Ollama, Redis, etc. | 2026-02-17 |
 
 ---
 
