@@ -16,6 +16,7 @@ Last updated: 2026-02-17
 | Fix MAF import | `ai_function` → `tool` (correct export name in current MAF version) |
 | App startup | Backend (FastAPI :8000) and frontend (Next.js :3001) both running with Entra ID auth |
 | Comprehensive README rewrite | Full README with hook, overview, key features, architecture diagrams, tech stack tables, security section, services, demo scenarios, MIT license. Lint-clean. |
+| Frontend rebuild agent prompt | Created `docs/FRONTEND_REBUILD_PROMPT.md` — 500+ line comprehensive prompt spec for an agent to rebuild the entire frontend from scratch. Covers tech stack, design system (oklch tokens, agent colors, animations), all 6 pages with pixel-level detail, Zustand store, API client, WebSocket client, TypeScript types, Playwright E2E tests. Based on full analysis of README, PRD, TRD, API docs, and reading every existing frontend file. |
 
 ---
 
